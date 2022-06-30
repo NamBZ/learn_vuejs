@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise 30/06</title>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Dancing Script"
+    rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <header>
+    <h1>Luận Số Đề</h1>
+    </header>
+    <section id="user-goal">
+    <h2>Lại đây xem đánh con gì nào</h2>
+    <div><span>{{ number }}</span></div>
+    <button v-on:click="getLuckyNumber">Lấy số</button>
+    <p><a v-bind:href="xsmbLink">{{ comment }}</a></p>
+    </section>
+</body>
+</html>
