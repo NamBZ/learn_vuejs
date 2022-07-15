@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Excercises 13/07</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Monster Slayer</h1>
+    </header>
+    <div id="game">
+      <section id="monster" class="container">
+        <h2>Monster Health</h2>
+        <div class="healthbar">
+          <div class="healthbar__lost" :style="monsterHealthBarStyle"></div>
+          <div class="healthbar__value" :style="monsterHealthBarStyle"></div>
+        </div>
+      </section>
+      <section id="player" class="container">
+        <h2>Your Health</h2>
+        <div class="healthbar">
+          <div class="healthbar__lost" :style="playerHealthBarStyle"></div>
+          <div class="healthbar__value" :style="playerHealthBarStyle"></div>
+        </div>
+      </section>
+      <section class="container" v-if="gameStatus != 0">
+        <h2>Game Over!</h2>
+        <h3 v-show="gameStatus == 1">Draw</h3>
+        <h3 v-show="gameStatus == 2">You won</h3>
+        <h3 v-show="gameStatus == 3">You lose</h3>
+        <button @click="startGame">Start new game</button>
+      </section>
+      <section id="controls" v-if="gameStatus == 0">
+        <button @click="attackMonster" :disabled="monsterHealth <= 0 || playerHealth <= 0">ATTACK</button>
+        <button @click="specialAttackMonster" :disabled="mayUseSpecialAttach">SPECIAL ATTACK</button>
+        <button @click="healPlayer">HEAL</button>
+        <button @click="surrender">SURRENDER</button>
+      </section>
+      <section id="log" class="container">
+        <h2>Battle Log</h2>
+        <ul v-show="turnLogs.length > 0">
+          <li v-for="turnLog in turnLogs">
+            <span
+              :class="{'log--player': turnLog.by=='player', 'log--monster': turnLog.by=='monster'}"
+            >{{ turnLog.by }}</span> 
+            <span v-if="turnLog.action == 'attack'">
+              attacks and deals
+              <span class="log--damage"> - {{ turnLog.value }}</span>
+            </span>
+            <span v-else>
+              heals himself for
+              <span class="log--heal"> + {{ turnLog.value }}</span>
+            </span>
+            
+          </li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>
